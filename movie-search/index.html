@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Search</title>
-    <link rel="stylesheet" href="./src/style.css">
+    <link rel="stylesheet" href="./style.css">
     <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
 </head>
 
@@ -14,9 +14,10 @@
         <h1>MovieSearch</h1>
     </header>
     <main class="main">
-        <form action="" class="search">
-            <input type="text" class="search-input" autofocus>
+        <form class="search" action="" method="GET">
+            <input type="text" class="search-input" autofocus placeholder="Search movie" >
             <button class="search-btn">Search</button>
+            <div class="loader" style="display: none;"></div>
             <span class="search-clear"></span>
             <span class="search-keyboard"></span>
         </form>
@@ -33,7 +34,7 @@
         </a>
         <a href="https://github.com/22-22" class="github">22-22</a></footer>
     <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
-    <script src="./src/script.js"></script>
+    <!-- <script src="./src/script.js"></script> -->
 </body>
 
 </html>
