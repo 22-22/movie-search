@@ -26,26 +26,23 @@ h1 {
     align-items: center;
     width: 50%;
     height: 45px;
-   margin: 0 auto 25px;
+    margin: 0 auto 25px;
 }
 
 .search-input {
-   background-image: url(./img/looking-glass.png);
-   background-size: 34px;
-   background-position: 10px 6px;
-   background-repeat: no-repeat;
-   border-radius: 5px;
-   border: 1px solid lightblue;
-   cursor: text;
-   display: block;
-   height: 45px;
-   width: calc(100% - 90px);
-   max-width: 1150px;
-   padding-left: 60px;
-   font-size: 16px;
-   /* text-overflow: ellipsis;  
-    overflow: hidden;
-    white-space: nowrap; */
+    background-image: url(./img/looking-glass.png);
+    background-size: 34px;
+    background-position: 10px 6px;
+    background-repeat: no-repeat;
+    border-radius: 5px;
+    border: 1px solid lightblue;
+    cursor: text;
+    display: block;
+    height: 45px;
+    width: calc(100% - 90px);
+    max-width: 1150px;
+    padding-left: 60px;
+    font-size: 16px;
     caret-color: navy;  
     padding: 0px 121px 0 43px;
 }
@@ -92,8 +89,8 @@ h1 {
     height: 25px;
     background-repeat: no-repeat;
 }
-/**************SWIPER**************/
 
+/**************SWIPER**************/
 .swiper-container {
     width: 1200px;
     height: 100%;
@@ -116,15 +113,20 @@ h1 {
     display: block;
     margin-bottom: 15px;
     height: 43px;
-    overflow: hidden;
     font-size: 24px;
-    text-decoration: underline;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:310px; 
   }
 
   .film-poster {
       height: 440px;
       width: 310px;
-      background-size: cover;
+      /* background-size: cover; */
+      background-position: center center; 
+      background-repeat:   no-repeat;
+      background-size: 100% 100%;
   }
 
   .film-year {
@@ -163,8 +165,7 @@ h1 {
     align-items: center;
     color: mintcream;
     font-weight: 600;
-    /* padding: 0 35px; */
-   
+    /* padding: 0 35px; */ 
 }
 
 .rss, .github {
