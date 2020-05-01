@@ -1,4 +1,5 @@
-//let mySwiper = document.querySelector('.swiper-container').swiper
+const posterNotFound = './img/image-not-found.png'
+
 window.addEventListener('DOMContentLoaded', () => {
   getMovieInfo('Blade runner', 1);
 });
@@ -6,27 +7,28 @@ window.addEventListener('DOMContentLoaded', () => {
 function getMovieInfo(keyWord, page) {
   const url = `https://www.omdbapi.com/?s=${keyWord}&page=${page}&apikey=960b025e`;
   document.querySelector('.loader').style.display = 'block';
-
+  
   fetch(url)
     .then(response => response.json())
     .then(data => {
-      data.Search.forEach(el => {
+      data.Search.forEach((el, idx) => {
         let slide = document.createElement('div');
         slide.classList.add('swiper-slide');
         slide.insertAdjacentHTML('afterbegin', `<div class="film-year">${el.Year}</div>`);
-        slide.insertAdjacentHTML('afterbegin', `<div class="film-poster" style="background-image: url(${el.Poster}); " ></div>`);
+        let poster = el.Poster === 'N/A' ? posterNotFound : el.Poster;
+        slide.insertAdjacentHTML('afterbegin', `<div class="film-poster" style="background-image: url(${poster}); " ></div>`);
         slide.insertAdjacentHTML('afterbegin', `<a href="https://www.imdb.com/title/${el.imdbID}/" class="film-name" target="_blank">${el.Title}</a>`);
-        document.querySelector('.swiper-wrapper').append(slide);
-
+      
         const urlRating = `https://www.omdbapi.com/?i=${el.imdbID}&apikey=960b025e`;
         fetch(urlRating)
           .then(res => res.json())
           .then(result => {
+            console.log(slide);
             slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${result.imdbRating}</a>`);
+            swiper.appendSlide(slide);
+           swiper.update();
           })
       })
-
-      initializeSlider();
       document.querySelector('.loader').style.display = 'none';
     })
 }
@@ -47,6 +49,7 @@ document.querySelector('.search').addEventListener('submit', (e) => {
   e.preventDefault();
   let keyWord = document.querySelector('.search-input').value;
   document.querySelector('.swiper-wrapper').innerHTML = '';
+  swiper.update();
 
   // let eng = /[a-zA-Z]/;
   // if (!eng.test(keyWord)) {
@@ -62,11 +65,9 @@ document.querySelector('.search-clear').addEventListener('click', (e) => {
   document.querySelector('.search').reset();
 })
 
-function initializeSlider() {
-  var swiper = new Swiper('.swiper-container', {
+  let swiper = new Swiper('.swiper-container', {
     slidesPerView: 1,
     spaceBetween: 10,
-
     breakpoints: {
       320: {
         slidesPerView: 2,
@@ -77,8 +78,6 @@ function initializeSlider() {
         spaceBetween: 30
       }
     },
-    loop: true,
-    loopFillGroupWithBlank: true,
     pagination: {
       el: '.swiper-pagination',
       clickable: true,
@@ -88,8 +87,11 @@ function initializeSlider() {
       prevEl: '.swiper-button-prev',
     },
   });
-  return swiper;
-}
+
+    swiper.on('reachEnd', () => {
+        console.log('hi');       
+      })
+
 
 
 
