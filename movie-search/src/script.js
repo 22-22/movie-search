@@ -4,8 +4,6 @@ let isSearch = false;
 let pageCount = 2;
 let info = document.querySelector('.info');
 
-// let swiper = document.querySelector('.swiper-container').swiper
-
 window.addEventListener('DOMContentLoaded', () => {
   displayMovieInfo('Blade runner', 1);
 });
@@ -33,11 +31,11 @@ function createSlide(movie) {
       .then(response => response.json())
       .then(movie => {
         slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${movie.imdbRating}</a>`);
-        swiper.appendSlide(slide);
-        swiper.update();
-        document.querySelector('.loader').style.display = 'none';
       })
+      swiper.appendSlide(slide);
+      swiper.update();
   })
+  document.querySelector('.loader').style.display = 'none';
 }
 
 function displayMovieInfo(keyWord, pageCount) {
@@ -63,11 +61,17 @@ function displayMovieInfo(keyWord, pageCount) {
 document.querySelector('.search').addEventListener('submit', (e) => {
   e.preventDefault();
   info.innerHTML = '';
+ // document.querySelector('.swiper-wrapper').classList.add('hidden');
   keyWord = document.querySelector('.search-input').value;
   isSearch = true;
   displayMovieInfo(keyWord, 1);
 })
 
+document.querySelector('.search-clear').addEventListener('click', (e) => {
+  document.querySelector('.search').reset();
+})
+
+// swiper
 let swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
   spaceBetween: 10,
@@ -104,9 +108,7 @@ swiper.on('slideChange', function () {
   }
 });
 
-document.querySelector('.search-clear').addEventListener('click', (e) => {
-  document.querySelector('.search').reset();
-})
+
 
 
 
