@@ -6,6 +6,10 @@
     box-sizing: border-box;
 }
 
+.hidden {
+    opacity: 0;
+}
+
 /************** header************/
 .header {
     height: 100px;
@@ -101,9 +105,9 @@ h1 {
     width: 1200px;
     height: 100%;
     padding: 0 29px !important;
-  }
+}
   
-  .swiper-slide {
+.swiper-slide {
     text-align: center;
     font-size: 18px;
     background: #fff;
@@ -113,9 +117,9 @@ h1 {
     align-items: center;
     flex-direction: column;
     cursor: pointer;
-  }
+}
 
-  .film-name {
+.film-name {
     display: block;
     margin-bottom: 15px;
     height: 43px;
@@ -124,43 +128,43 @@ h1 {
     white-space: nowrap;
     overflow: hidden;
     width:310px; 
-  }
+}
 
-  .film-poster {
-      height: 440px;
-      width: 310px;
-      /* background-size: cover; */
-      background-position: center center; 
-      background-repeat:   no-repeat;
-      background-size: 100% 100%;
-  }
+.film-poster {
+    height: 440px;
+    width: 310px;
+    /* background-size: cover; */
+    background-position: center center; 
+    background-repeat:   no-repeat;
+    background-size: 100% 100%;
+}
 
-  .film-year {
-      padding: 10px 0 15px;
-      font-weight: bold;
-  }
+.film-year {
+    padding: 10px 0 15px;
+    font-weight: bold;
+}
 
-  .film-rating {
-      font-weight: bold;
-      position: relative;
-      padding-left: 18px;
-      line-height: 25px;
-  }
+.film-rating {
+    font-weight: bold;
+    position: relative;
+    padding-left: 18px;
+    line-height: 25px;
+}
 
-  .film-rating::before {
-      content: '';
-      background-image: url(./img/star.png);
-      width: 20px;
-      height: 20px;
-      background-size: 20px;
-      position: absolute;
-      left: -7px;
-  }
+.film-rating::before {
+    content: '';
+    background-image: url(./img/star.png);
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
+    position: absolute;
+    left: -7px;
+}
 
-  .swiper-pagination {
-      margin: 10px 0;
-      position: relative !important;
-  }
+.swiper-pagination {
+    margin: 10px 0;
+    position: relative !important;
+}
 
 /*************FOOTER********************/
 .footer {
