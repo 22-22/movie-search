@@ -6,15 +6,16 @@
     box-sizing: border-box;
 }
 
-.hidden {
-    opacity: 0;
-}
+/* body {
+    height: 100%;
+} */
 
 /************** header************/
 .header {
     height: 100px;
     background-color: rgb(9, 9, 75);
     margin-bottom: 40px;
+    width: 100%;
 }
 
 h1 {
@@ -61,6 +62,7 @@ h1 {
     color: whitesmoke;
     font-size: 16px;
     margin: 0 5px;
+    padding: 5px;
 }
 
 .search-clear {
@@ -96,8 +98,18 @@ h1 {
 
 .info {
     text-align: center;
+}
+
+.info-active {
+    justify-content: center;
+    align-items: center;
+    display: flex;
     margin-bottom: 10px;
     font-size: 18px;
+    width: 100%;
+    height: 100%;
+    padding: 15%;
+    margin: auto;
 }
 
 /**************SWIPER**************/
@@ -119,6 +131,11 @@ h1 {
     cursor: pointer;
 }
 
+.swiper-pagination {
+    margin: 10px 0;
+    position: relative !important;
+}
+
 .film-name {
     display: block;
     margin-bottom: 15px;
@@ -127,7 +144,7 @@ h1 {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    width:310px; 
+    width: 310px; 
 }
 
 .film-poster {
@@ -135,7 +152,7 @@ h1 {
     width: 310px;
     /* background-size: cover; */
     background-position: center center; 
-    background-repeat:   no-repeat;
+    background-repeat: no-repeat;
     background-size: 100% 100%;
 }
 
@@ -161,9 +178,11 @@ h1 {
     left: -7px;
 }
 
-.swiper-pagination {
-    margin: 10px 0;
-    position: relative !important;
+.err {
+    font-size: 12px;
+    color: red;
+    text-align: center;
+    margin-bottom: 5px;
 }
 
 /*************FOOTER********************/
@@ -175,10 +194,47 @@ h1 {
     align-items: center;
     color: mintcream;
     font-weight: 600;
-    /* padding: 0 35px; */ 
+    width: 100%;
 }
 
 .rss, .github {
     color: mintcream;
     text-decoration: none;
+}
+
+@media (max-width: 769px) {
+    .swiper-container {
+        width: 700px;
+    }
+
+    .film-poster {
+        height: 340px;
+        width: 250px;
+    }
+
+    .search-keyboard {
+       display: none;
+    }
+
+    .search-clear {
+        right: 110px;  
+    }
+
+    .film-name {
+        width: 250px; 
+    }
+}
+
+@media (max-width: 451px) {
+    .swiper-container {
+        width: 400px;
+    }
+
+    .search-clear {
+        right: 70px;  
+    }
+
+    .search-btn {
+        font-size: 14px;
+    }
 }
