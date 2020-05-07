@@ -2,12 +2,12 @@ const posterNotFound = './img/image-not-found.png';
 let isSearch = false;
 const info = document.querySelector('.info');
 const movieKey = '960b025e';
+const host = 'https://www.omdbapi.com/';
 
 // swiper
 const swiper = new Swiper('.swiper-container', {
   slidesPerView: 1,
   spaceBetween: 10,
-  // initialSlide: 0,
   breakpoints: {
     451: {
       slidesPerView: 2,
@@ -36,29 +36,56 @@ function loadTranslation(keyWord) {
 }
 
 function loadMovie(text, pageCount) {
-  return fetch(`https://www.omdbapi.com/?s=${text}&page=${pageCount}&apikey=${movieKey}`)
+  return fetch(`${host}?s=${text}&page=${pageCount}&apikey=${movieKey}`)
     .then((response) => {
       if (!response.ok) document.querySelector('.err').innerHTML = 'Sorry, too many requests for today<br>';
       return response.json();
-    });
+    })
+    .then((data) => data.Search);
 }
 
-function createSlide(movie) {
-  movie.Search.forEach((el) => {
+function fetchRating(movie) {
+  return fetch(`${host}?i=${movie.imdbID}&apikey=${movieKey}`)
+    .then((response) => response.json());
+}
+
+function addRating(movies) {
+  return Promise.all(movies.map((movie) => fetchRating(movie)
+    .then((rating) => ({ ...movie, rating }))));
+}
+
+function awaitImageLoaded(imgElement) {
+  return new Promise((resolve) => {
+    if (imgElement.complete) {
+      resolve();
+    } else {
+      imgElement.addEventListener('load', () => resolve(), { once: true });
+    }
+  });
+}
+
+function prefetchImages(images) {
+  const promises = images.map((image) => {
+    const imgElement = document.createElement('img');
+    imgElement.src = image === 'N/A' ? posterNotFound : image;
+    return awaitImageLoaded(imgElement);
+  });
+  return Promise.all(promises);
+}
+
+function createSlide(movies) {
+  const slides = movies.map((movie) => {
     const slide = document.createElement('div');
     slide.classList.add('swiper-slide');
-    slide.insertAdjacentHTML('afterbegin', `<div class="film-year">${el.Year}</div>`);
-    const poster = el.Poster === 'N/A' ? posterNotFound : el.Poster;
+    slide.insertAdjacentHTML('afterbegin', `<div class="film-year">${movie.Year}</div>`);
+    const poster = movie.Poster === 'N/A' ? posterNotFound : movie.Poster;
     slide.insertAdjacentHTML('afterbegin', `<div class="film-poster" style="background-image: url(${poster}); " ></div>`);
-    slide.insertAdjacentHTML('afterbegin', `<a href="https://www.imdb.com/title/${el.imdbID}/" class="film-name" target="_blank">${el.Title}</a>`);
-    fetch(`https://www.omdbapi.com/?i=${el.imdbID}&apikey=${movieKey}`)
-      .then((response) => response.json())
-      .then((res) => {
-        slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${res.imdbRating}</a>`);
-      });
-    swiper.appendSlide(slide);
-    swiper.update();
+    slide.insertAdjacentHTML('afterbegin', `<a href="https://www.imdb.com/title/${movie.imdbID}/" class="film-name" target="_blank">${movie.Title}</a>`);
+    slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${movie.rating.imdbRating}</a>`);
+    return slide;
   });
+  swiper.appendSlide(slides);
+  swiper.update();
   document.querySelector('.loader').style.display = 'none';
 }
 
@@ -76,13 +103,23 @@ function displayMovieInfo(keyWord, pageCount) {
   const engNum = /[a-zA-Z0-9]/;
   if (engNum.test(keyWord)) {
     loadMovie(keyWord, pageCount)
-      .then(createSlide)
+      .then((movies) => addRating(movies))
+      .then((movies) => {
+        const posters = movies.map((movie) => movie.Poster);
+        return prefetchImages(posters).then(() => movies);
+      })
+      .then((movies) => createSlide(movies))
       .catch((err) => handleError(err));
   } else {
     info.innerHTML = `Showing results for  <strong>${keyWord}</strong>`;
     loadTranslation(keyWord)
       .then((translation) => loadMovie(translation.text, pageCount))
-      .then(createSlide)
+      .then((movies) => addRating(movies))
+      .then((movies) => {
+        const posters = movies.map((movie) => movie.Poster);
+        return prefetchImages(posters).then(() => movies);
+      })
+      .then((movies) => createSlide(movies))
       .catch((err) => handleError(err));
   }
 }
