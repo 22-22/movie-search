@@ -84,21 +84,20 @@ function createSlide(movies) {
     slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${movie.rating.imdbRating}</a>`);
     return slide;
   });
+  swiper.removeAllSlides();
+  swiper.update();
   swiper.appendSlide(slides);
   swiper.update();
   document.querySelector('.loader').style.display = 'none';
 }
 
 function handleError(err) {
-  info.classList.add('info-active');
-  info.innerHTML = `No results for &nbsp;<strong>${document.querySelector('.search-input').value}</strong>`;
+  info.innerHTML = `No results for <strong>${document.querySelector('.search-input').value}</strong>`;
   document.querySelector('.err').innerHTML += err.message;
   document.querySelector('.loader').style.display = 'none';
 }
 
 function displayMovieInfo(keyWord, pageCount) {
-  swiper.removeAllSlides();
-  swiper.update();
   document.querySelector('.loader').style.display = 'block';
   const engNum = /[a-zA-Z0-9]/;
   if (engNum.test(keyWord)) {
@@ -111,7 +110,7 @@ function displayMovieInfo(keyWord, pageCount) {
       .then((movies) => createSlide(movies))
       .catch((err) => handleError(err));
   } else {
-    info.innerHTML = `Showing results for  <strong>${keyWord}</strong>`;
+    info.innerHTML = `Showing results for <strong>${keyWord}</strong>`;
     loadTranslation(keyWord)
       .then((translation) => loadMovie(translation.text, pageCount))
       .then((movies) => addRating(movies))
@@ -128,7 +127,6 @@ function displayMovieInfo(keyWord, pageCount) {
 document.querySelector('.search').addEventListener('submit', (e) => {
   e.preventDefault();
   info.innerHTML = '';
-  info.classList.remove('info-active');
   document.querySelector('.err').innerHTML = '';
   const keyWord = document.querySelector('.search-input').value;
   isSearch = true;
