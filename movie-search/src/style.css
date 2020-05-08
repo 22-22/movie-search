@@ -6,9 +6,11 @@
     box-sizing: border-box;
 }
 
-/* body {
-    height: 100%;
-} */
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+}
 
 /************** header************/
 .header {
@@ -188,7 +190,106 @@ h1 {
 .rss, .github {
     color: mintcream;
     text-decoration: none;
+    position: relative;
 }
+
+.github::before {
+    content: '';
+    background-image: url(./img/octocat.jpg);
+    width: 44px;
+    height: 38px;
+    position: absolute;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center; 
+    left: -105%;
+    border-radius: 50%;
+    top: -34%;
+}
+
+/*****************************************/
+.keyboard-window {
+    z-index: 10;
+    padding: 10px;
+    background-color: rgb(191, 239, 255);
+    position: absolute;
+    top: -250%;
+    left: 60%;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.keyboard-window--close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    font-weight: 900;
+    right: 30px;
+    cursor: pointer;
+}
+
+.keyboard {
+    width: 100%;
+    padding: 5px 0;
+    background: #004134;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    max-width: 1050px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.container {
+    text-align: center;
+    padding: 5px;
+    width: 600px;
+}
+
+.key {
+    width: 5%;
+    height: 40px;
+    max-width: 70px;
+    background-color: rgb(30, 144, 255, 0.5);
+    border-radius: 5px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Lucida Sans', 'Lucida Grande', Verdana, sans-serif;
+    color: rgb(1, 65, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 1px;
+    cursor: pointer;
+    transition: all .2s;
+    vertical-align: top;
+}
+
+.keyboard__key-wide {
+    width: 12%;
+    max-width: 120px;
+    font-size: 0.7rem;
+    font-weight: 700;
+}
+
+.keyboard__key-widest {
+    width: 43%;
+    max-width: 500px;
+}
+
+.key:hover {
+    transform: scale(1.03);
+}
+
+.key:active {    
+    background-color: greenyellow;
+    border-radius: 20px;
+}
+
+.active {
+    background-color: greenyellow;
+    border-radius: 20px;
+}
+/*****************MEDIA*********************/
 
 @media (max-width: 769px) {
     .swiper-container {
