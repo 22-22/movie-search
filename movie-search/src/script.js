@@ -1,4 +1,5 @@
 import createKeyboard from './keyboard';
+import recognition from './speech-recognition';
 
 const posterNotFound = './img/image-not-found.png';
 const movieKey = '960b025e';
@@ -164,6 +165,9 @@ swiper.on('slideChange', () => {
     counter += 1;
   }
 });
+
+// speech recognition
+document.querySelector('.search-mic').addEventListener('click', () => recognition.start());
 
 window.addEventListener('DOMContentLoaded', () => {
   displaySlidesWithMovieInfo('Blade runner', 1);

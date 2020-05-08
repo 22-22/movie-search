@@ -74,7 +74,18 @@ h1 {
     height: 62px;
     background-repeat: no-repeat;
     cursor: pointer;
-    right: 164px;  
+    right: 110px;  
+}
+
+.search-mic {
+    position: absolute;
+    background-image: url(./img/mic.png);
+    width: 42px;
+    height: 48px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    right: 170px;  
+    opacity: 0.8;
 }
 
 .search-keyboard {
@@ -84,14 +95,14 @@ h1 {
     height: 56px;
     background-repeat: no-repeat;
     cursor: pointer;
-    right: 110px;  
+    right: 130px;  
     background-size: 47px;
     opacity: 0.8;
 }
 
 .loader {
     position: absolute;
-    right: 194px;
+    right: 211px;
     background-image: url(./img/loader.png);
     width: 25px;
     height: 25px;
