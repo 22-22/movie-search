@@ -16,6 +16,7 @@ module.exports = {
     },
     "rules": {
         'no-undef': 0,
+        'no-param-reassign': 0,
     }
 
   };
