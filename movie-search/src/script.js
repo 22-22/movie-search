@@ -156,6 +156,10 @@ swiper.on('slideChange', () => {
   if (swiper.activeIndex === 7) {
     isSearch = false;
     const keyWord = document.querySelector('.search-input').value;
+    if (keyWord === '') {
+      info.innerHTML = 'Please enter a search query';
+      return;
+    }
     displaySlidesWithMovieInfo(keyWord, pageCount);
     counter += 1;
   }
