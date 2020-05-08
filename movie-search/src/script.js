@@ -1,8 +1,11 @@
+import createKeyboard from './keyboard';
+
 const posterNotFound = './img/image-not-found.png';
-let isSearch = false;
-const info = document.querySelector('.info');
 const movieKey = '960b025e';
 const host = 'https://www.omdbapi.com/';
+const info = document.querySelector('.info');
+let isSearch = false;
+let counter = 2;
 
 // swiper
 const swiper = new Swiper('.swiper-container', {
@@ -73,14 +76,16 @@ function prefetchImages(images) {
   return Promise.all(promises);
 }
 
-function createSlide(movies) {
+function renderSlides(movies) {
   const slides = movies.map((movie) => {
     const slide = document.createElement('div');
     slide.classList.add('swiper-slide');
     slide.insertAdjacentHTML('afterbegin', `<div class="film-year">${movie.Year}</div>`);
     const poster = movie.Poster === 'N/A' ? posterNotFound : movie.Poster;
-    slide.insertAdjacentHTML('afterbegin', `<div class="film-poster" style="background-image: url(${poster}); " ></div>`);
-    slide.insertAdjacentHTML('afterbegin', `<a href="https://www.imdb.com/title/${movie.imdbID}/" class="film-name" target="_blank">${movie.Title}</a>`);
+    slide.insertAdjacentHTML('afterbegin',
+      `<div class="film-poster" style="background-image: url(${poster}); " ></div>`);
+    slide.insertAdjacentHTML('afterbegin',
+      `<a href="https://www.imdb.com/title/${movie.imdbID}/videogallery/" class="film-name" target="_blank">${movie.Title}</a>`);
     slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${movie.rating.imdbRating}</a>`);
     return slide;
   });
@@ -97,7 +102,7 @@ function handleError(err) {
   document.querySelector('.loader').style.display = 'none';
 }
 
-function displayMovieInfo(keyWord, pageCount) {
+function displaySlidesWithMovieInfo(keyWord, pageCount) {
   document.querySelector('.loader').style.display = 'block';
   const engNum = /[a-zA-Z0-9]/;
   if (engNum.test(keyWord)) {
@@ -107,7 +112,7 @@ function displayMovieInfo(keyWord, pageCount) {
         const posters = movies.map((movie) => movie.Poster);
         return prefetchImages(posters).then(() => movies);
       })
-      .then((movies) => createSlide(movies))
+      .then((movies) => renderSlides(movies))
       .catch((err) => handleError(err));
   } else {
     info.innerHTML = `Showing results for <strong>${keyWord}</strong>`;
@@ -118,9 +123,19 @@ function displayMovieInfo(keyWord, pageCount) {
         const posters = movies.map((movie) => movie.Poster);
         return prefetchImages(posters).then(() => movies);
       })
-      .then((movies) => createSlide(movies))
+      .then((movies) => renderSlides(movies))
       .catch((err) => handleError(err));
   }
+}
+
+function searchMovie() {
+  isSearch = true;
+  const keyWord = document.querySelector('.search-input').value;
+  if (keyWord === '') {
+    info.innerHTML = 'Please enter a search query';
+    return;
+  }
+  displaySlidesWithMovieInfo(keyWord, 1);
 }
 
 // form submit
@@ -128,9 +143,7 @@ document.querySelector('.search').addEventListener('submit', (e) => {
   e.preventDefault();
   info.innerHTML = '';
   document.querySelector('.err').innerHTML = '';
-  const keyWord = document.querySelector('.search-input').value;
-  isSearch = true;
-  displayMovieInfo(keyWord, 1);
+  searchMovie(e);
 });
 
 document.querySelector('.search-clear').addEventListener('click', () => {
@@ -138,18 +151,23 @@ document.querySelector('.search-clear').addEventListener('click', () => {
 });
 
 swiper.on('slideChange', () => {
-  let pageCount;
-  if (isSearch === true) {
-    pageCount = 2;
-  }
+  const pageCount = isSearch === true ? 2 : counter;
+  if (isSearch === true) counter = 2;
   if (swiper.activeIndex === 7) {
     isSearch = false;
     const keyWord = document.querySelector('.search-input').value;
-    displayMovieInfo(keyWord, pageCount);
-    pageCount += 1;
+    displaySlidesWithMovieInfo(keyWord, pageCount);
+    counter += 1;
   }
 });
 
 window.addEventListener('DOMContentLoaded', () => {
-  displayMovieInfo('Blade runner', 1);
+  displaySlidesWithMovieInfo('Blade runner', 1);
+  createKeyboard();
+  document.querySelector('#Enter').addEventListener('click', (e) => {
+    e.preventDefault();
+    info.innerHTML = '';
+    document.querySelector('.err').innerHTML = '';
+    searchMovie();
+  });
 });
