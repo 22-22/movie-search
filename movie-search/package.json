@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "webpack --mode development",
     "prod": "webpack --mode production",
-    "lint": "node node_modules/eslint/bin/eslint.js ./src/script.js"
+    "lint": "node node_modules/eslint/bin/eslint.js ./src"
   },
   "keywords": [],
   "author": "",
