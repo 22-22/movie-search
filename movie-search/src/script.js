@@ -54,6 +54,10 @@ function prefetchImages(images) {
   return Promise.all(promises);
 }
 
+function removeSlides() {
+  swiper.removeAllSlides();
+  swiper.update();
+}
 function renderSlides(movies) {
   const slides = movies.map((movie) => {
     const slide = document.createElement('div');
@@ -67,8 +71,7 @@ function renderSlides(movies) {
     slide.insertAdjacentHTML('beforeend', `<a class="film-rating">${movie.rating.imdbRating}</a>`);
     return slide;
   });
-  swiper.removeAllSlides();
-  swiper.update();
+  removeSlides();
   swiper.appendSlide(slides);
   swiper.update();
   document.querySelector('.loader').style.display = 'none';
@@ -82,7 +85,7 @@ function handleError(err) {
 
 function displaySlidesWithMovieInfo(keyWord, pageCount) {
   document.querySelector('.loader').style.display = 'block';
-  const engNum = /[a-zA-Z0-9]/;
+  const engNum = /[a-zA-Z]/;
   if (engNum.test(keyWord)) {
     loadMovie(keyWord, pageCount)
       .then((movies) => addRating(movies))
@@ -129,6 +132,7 @@ document.querySelector('.search-clear').addEventListener('click', () => {
 });
 
 swiper.on('slideChange', () => {
+  info.innerHTML = '';
   const pageCount = isSearch === true ? 2 : counter;
   if (isSearch === true) counter = 2;
   if (swiper.activeIndex === 7) {
