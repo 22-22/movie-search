@@ -22,7 +22,15 @@ function loadMovie(text, pageCount) {
       if (!response.ok) document.querySelector('.err').innerHTML = 'Sorry, too many requests for today<br>';
       return response.json();
     })
-    .then((data) => data.Search);
+    .then((data) => {
+      if (data.Error === 'Too many results.') {
+        document.querySelector('.err').innerHTML = 'Sorry, too many results.';
+      }
+      if (data.Error === 'Movie not found!') {
+        document.querySelector('.err').innerHTML = 'Sorry, movie not found.';
+      }
+      return data.Search;
+    });
 }
 
 function fetchRating(movie) {
@@ -58,6 +66,7 @@ function removeSlides() {
   swiper.removeAllSlides();
   swiper.update();
 }
+
 function renderSlides(movies) {
   const slides = movies.map((movie) => {
     const slide = document.createElement('div');
@@ -79,7 +88,9 @@ function renderSlides(movies) {
 
 function handleError(err) {
   info.innerHTML = `No results for <strong>${document.querySelector('.search-input').value}</strong>`;
-  document.querySelector('.err').innerHTML += err.message;
+  if (document.querySelector('.err').innerHTML === '') {
+    document.querySelector('.err').innerHTML = err.message;
+  }
   document.querySelector('.loader').style.display = 'none';
 }
 
