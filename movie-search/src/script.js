@@ -49,6 +49,7 @@ function awaitImageLoaded(imgElement) {
       resolve();
     } else {
       imgElement.addEventListener('load', () => resolve(), { once: true });
+      imgElement.addEventListener('error', () => resolve(), { once: true });
     }
   });
 }
