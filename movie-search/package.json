@@ -9,6 +9,9 @@
     "lint": "node node_modules/eslint/bin/eslint.js ./src",
     "test": "jest"
   },
+  "jest": {
+    "verbose": true
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
