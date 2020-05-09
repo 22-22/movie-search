@@ -18,7 +18,6 @@ module.exports = {
     "rules": {
         'no-undef': 0,
         'no-param-reassign': 0,
-        'import/prefer-default-export': 0
     }
 
   };
