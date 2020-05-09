@@ -1,3 +1,4 @@
+import swiper from './swiper';
 import createKeyboard from './keyboard';
 import recognition from './speech-recognition';
 
@@ -7,30 +8,6 @@ const host = 'https://www.omdbapi.com/';
 const info = document.querySelector('.info');
 let isSearch = false;
 let counter = 2;
-
-// swiper
-const swiper = new Swiper('.swiper-container', {
-  slidesPerView: 1,
-  spaceBetween: 10,
-  breakpoints: {
-    451: {
-      slidesPerView: 2,
-      spaceBetween: 20,
-    },
-    769: {
-      slidesPerView: 3,
-      spaceBetween: 30,
-    },
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-});
 
 function loadTranslation(keyWord) {
   const urlTranslation = 'https://translate.yandex.net/api/v1.5/tr.json/translate?'
