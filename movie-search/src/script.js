@@ -1,6 +1,8 @@
 import swiper from './swiper';
 import createKeyboard from './keyboard';
 import recognition from './speech-recognition';
+import isEnglish from './isEnglish';
+import loadMovie from './loadMovie';
 
 const posterNotFound = './img/image-not-found.png';
 const movieKey = '960b025e';
@@ -16,17 +18,18 @@ function loadTranslation(keyWord) {
     .then((response) => response.json());
 }
 
-function loadMovie(text, pageCount) {
-  return fetch(`${host}?s=${text}&page=${pageCount}&apikey=${movieKey}`)
-    .then((response) => {
-      if (!response.ok) document.querySelector('.err').innerHTML = 'Sorry, too many requests for today<br>';
-      return response.json();
-    })
-    .then((data) => {
-      if ('Error' in data) document.querySelector('.err').innerHTML = `Sorry! ${data.Error}`;
-      return data.Search;
-    });
-}
+// function loadMovie(text, pageCount) {
+//   return fetch(`${host}?s=${text}&page=${pageCount}&apikey=${movieKey}`)
+//     .then((response) => {
+//       if (!response.ok) document.querySelector('.err')
+// .innerHTML = 'Sorry, too many requests for today<br>';
+//       return response.json();
+//     })
+//     .then((data) => {
+//       if ('Error' in data) document.querySelector('.err').innerHTML = `Sorry! ${data.Error}`;
+//       return data.Search;
+//     });
+// }
 
 function fetchRating(movie) {
   return fetch(`${host}?i=${movie.imdbID}&apikey=${movieKey}`)
@@ -92,8 +95,7 @@ function handleError(err) {
 
 function displaySlidesWithMovieInfo(keyWord, pageCount) {
   document.querySelector('.loader').style.display = 'block';
-  const engNum = /[a-zA-Z]/;
-  if (engNum.test(keyWord)) {
+  if (isEnglish(keyWord)) {
     loadMovie(keyWord, pageCount)
       .then((movies) => addRating(movies))
       .then((movies) => {
