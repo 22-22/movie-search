@@ -142,7 +142,8 @@ swiper.on('slideChange', () => {
   info.innerHTML = '';
   const pageCount = isSearch === true ? 2 : counter;
   if (isSearch === true) counter = 2;
-  if (swiper.activeIndex === 7) {
+  const SlidesPerView = swiper.currentBreakpoint === '768' ? 3 : 2;
+  if (swiper.activeIndex === swiper.slides.length - SlidesPerView) {
     isSearch = false;
     const keyWord = document.querySelector('.search-input').value;
     if (keyWord === '') {
