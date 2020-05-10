@@ -23,12 +23,7 @@ function loadMovie(text, pageCount) {
       return response.json();
     })
     .then((data) => {
-      if (data.Error === 'Too many results.') {
-        document.querySelector('.err').innerHTML = 'Sorry, too many results.';
-      }
-      if (data.Error === 'Movie not found!') {
-        document.querySelector('.err').innerHTML = 'Sorry, movie not found.';
-      }
+      if ('Error' in data) document.querySelector('.err').innerHTML = `Sorry! ${data.Error}`;
       return data.Search;
     });
 }
@@ -172,3 +167,5 @@ window.addEventListener('DOMContentLoaded', () => {
     searchMovie();
   });
 });
+
+export default loadTranslation;
