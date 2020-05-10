@@ -84,7 +84,7 @@ h1 {
     height: 48px;
     background-repeat: no-repeat;
     cursor: pointer;
-    right: 170px;  
+    right: 128px;  
     opacity: 0.8;
 }
 
@@ -95,7 +95,7 @@ h1 {
     height: 56px;
     background-repeat: no-repeat;
     cursor: pointer;
-    right: 130px;  
+    right: 159px;  
     background-size: 47px;
     opacity: 0.8;
 }
@@ -124,7 +124,6 @@ h1 {
     text-align: center;
     font-size: 18px;
     background: #fff;
-/* width: 300px !important; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -154,7 +153,6 @@ h1 {
     background-size: contain;
     background-position: center center; 
     background-repeat: no-repeat;
-    /* background-size: 100% 100%; */
 }
 
 .film-year {
@@ -301,37 +299,37 @@ h1 {
     border-radius: 20px;
 }
 /*****************MEDIA*********************/
-@media (max-width: 1100px) {
-    .swiper-container {
-        width: 700px;
-    }
-
+@media (max-width: 1020px) {
     .film-poster {
-        height: 340px;
-        width: 250px;
-    }
-}
-
-@media (max-width: 769px) {
-    .swiper-container {
-        width: 700px;
-    }
-
-    .film-poster {
-        height: 340px;
-        width: 250px;
+        height: 380px;
+        width: 270px;
     }
 
     .search-keyboard {
-       display: none;
+        display: none;
+     }
+
+    .loader {
+        right: 168px;
+    }
+}
+
+@media (max-width: 767px) {
+    .swiper-container {
+        width: 700px;
     }
 
-    .search-mic {
-        display: none;
+    .film-poster {
+        height: 340px;
+        width: 250px;
     }
 
     .search-clear {
         right: 110px;  
+    }
+
+    .search-input {
+       padding: 0px 55px 0 43px;
     }
 
     .film-name {
@@ -345,7 +343,15 @@ h1 {
     }
 
     .search-clear {
-        right: 70px;  
+        right: 97px;  
+    }
+
+    .search-input {
+        padding: 0px 28px 0 43px;
+     }
+
+    .search-mic {
+        display: none;
     }
 
     .search-btn {
