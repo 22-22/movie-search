@@ -1,7 +1,7 @@
-import searchMovie from './script';
+import loadTranslation from './script';
 
-describe('searchMovie', () => {
+describe('loadTranslation', () => {
   it('should return result', () => {
-    expect(searchMovie()).toBeDefined();
+    expect(loadTranslation()).toBeDefined();
   });
 });
