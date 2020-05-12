@@ -18,19 +18,6 @@ function loadTranslation(keyWord) {
     .then((response) => response.json());
 }
 
-// function loadMovie(text, pageCount) {
-//   return fetch(`${host}?s=${text}&page=${pageCount}&apikey=${movieKey}`)
-//     .then((response) => {
-//       if (!response.ok) document.querySelector('.err')
-// .innerHTML = 'Sorry, too many requests for today<br>';
-//       return response.json();
-//     })
-//     .then((data) => {
-//       if ('Error' in data) document.querySelector('.err').innerHTML = `Sorry! ${data.Error}`;
-//       return data.Search;
-//     });
-// }
-
 function fetchRating(movie) {
   return fetch(`${host}?i=${movie.imdbID}&apikey=${movieKey}`)
     .then((response) => response.json());
