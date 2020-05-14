@@ -70,11 +70,13 @@ h1 {
 .search-clear {
     position: absolute;
     background-image: url(./img/clear.png);
-    width: 45px;
+    width: 16px;
     height: 62px;
     background-repeat: no-repeat;
     cursor: pointer;
     right: 110px;  
+    background-position: center center;
+    background-size: 60px;
 }
 
 .search-mic {
