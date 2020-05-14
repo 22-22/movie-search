@@ -92,9 +92,11 @@ function displaySlidesWithMovieInfo(keyWord, pageCount) {
       .then((movies) => renderSlides(movies))
       .catch((err) => handleError(err));
   } else {
-    info.innerHTML = `Showing results for <strong>${keyWord}</strong>`;
     loadTranslation(keyWord)
-      .then((translation) => loadMovie(translation.text, pageCount))
+      .then((translation) => {
+        info.innerHTML = `Showing results for <strong>${translation.text}</strong>`;
+        return loadMovie(translation.text, pageCount);
+      })
       .then((movies) => addRating(movies))
       .then((movies) => {
         const posters = movies.map((movie) => movie.Poster);
