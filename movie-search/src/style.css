@@ -26,6 +26,10 @@ h1 {
     line-height: 100px;
 }
 
+main {
+    height: 100%;
+}
+
 /************SEARCH**************/
 .search {
     position: relative;
@@ -105,10 +109,11 @@ h1 {
 .loader {
     position: absolute;
     right: 211px;
-    background-image: url(./img/loader.png);
+    background-image: url(./img/loader.gif);
     width: 25px;
     height: 25px;
     background-repeat: no-repeat;
+    background-position: center center;
 }
 
 .info {
