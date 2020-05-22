@@ -12,6 +12,12 @@
     overflow: hidden;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 /************** header************/
 .header {
     height: 100px;
@@ -26,9 +32,13 @@ h1 {
     line-height: 100px;
 }
 
-main {
+/* main {
     height: 100%;
-}
+} */
+main {
+  flex: 1;
+  
+  }
 
 /************SEARCH**************/
 .search {
@@ -200,7 +210,7 @@ main {
     align-items: center;
     color: mintcream;
     font-weight: 600;
-    width: 100%;
+    width: 100%;   
 }
 
 .rss, .github {
